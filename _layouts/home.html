@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: " en" }}">
+<meta http-equiv="X-XSS-Protection" content="1;mode=block" always>
+<meta http-equiv="Referrer-Policy" content="no-referrer, strict-origin-when-cross-origin">
+<title>{{ site.title }} {{page.title}}</title>
+
+<head>
+    <style>
+        html {
+            background-color: black;
+        }
+
+        body {
+            background-image: url("./_pics/201508_irobot.gif");
+            background-color: black;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
+            background-size: cover;
+        }
+    </style>
+    {%- include google-analytics.html -%}
+
+<body>
+    <div style="position: absolute; bottom: 6; width: 99%">
+        <p align="center">
+            <iframe width="50%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/90815177&color=%231a1e21&auto_play=false&hide_related=false&show_comments=false&show_user=false&show_reposts=false&show_teaser=true"></iframe>
+        </p>
+    </div>
+
+    {%- include footer.html -%}
+
+</body>
+
+</html>

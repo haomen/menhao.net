@@ -1,0 +1,39 @@
+title: 'menhao.net'
+baseurl: "/"
+
+locale: "en-US"
+google_analytics: G-JGH3GF28LL
+
+author:
+  name: "Hao Men"
+
+# Markdown Processing
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
+
+# markdown
+markdown: kramdown
+highlighter: rouge
+
+# Markdown Processing
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
+
+remote_theme: b2a3e8/jekyll-theme-console
+
+plugins:
+  - jekyll-seo-tag
