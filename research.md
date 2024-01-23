@@ -1,22 +1,23 @@
 ---
-layout: default
+layout: research
 title: Research
 permalink: /research
 ---
+
 
 # 3D Color Laser Scanner
 
 I received my PhD degree under Prof. Kishore Pochiraju's instruction at Stevens Institute of Technology. We built one of the first high precision 3D color laser mapping systems. This systems can be applied to urban surgeying, robotic mapping and autonomous navigation.
 
-First 3D color mapping robot I built in Stevens: Remotely Operated and Autonomous Mapping System (ROAMS). This work has been reported by MIT Technology Review, and Engadget.
+First 3D color mapping robot I built in Stevens: [Remotely Operated and Autonomous Mapping System (ROAMS)](https://www.technologyreview.com/s/416331/making-3d-maps-on-the-move/). This work has been reported by [MIT Technology Review](https://www.technologyreview.com/s/416331/making-3d-maps-on-the-move/), [Engadget](http://www.engadget.com/2009/11/18/3d-mapping-drone-fires-off-lasers-from-a-mile-away-video/), and [LiDAR News](https://blog.lidarnews.com/3d-laser-scanner-mapping-system-breaks-price-barrier/).
 
 Commercialized product for 3D color laser mapping in urban surgeying: CADEyes.
 
-<img src ="https://raw.githubusercontent.com/haomen/menhao.net/master/publications/CADEyes.gif">
+<img src ="https://raw.githubusercontent.com/haomen/menhao.net/master/publications/CADEyes.gif" width="300" height="225" />
 
 Compact version of developed 3D color laser scanner can also be installed on small robotic platform for indoor mapping.
 
-<img src ="https://raw.githubusercontent.com/haomen/menhao.net/master/publications/CompactMappingBot.gif">
+<img src ="https://raw.githubusercontent.com/haomen/menhao.net/master/publications/CompactMappingBot.gif" width="300" height="225" />
 
 Indoor and outdoor 3D color mapping data (Point Clouds) can be automatically registered into global map based on the algorithms I designed.
 
@@ -42,4 +43,4 @@ Indoor and outdoor 3D color mapping data (Point Clouds) can be automatically reg
 ---
 
 # Dissertation
-* (Robotic Exploration for Mapping: Systems and Algorithms](https://dl.acm.org/doi/book/10.5555/2520147), 2012.
+* [Robotic Exploration for Mapping: Systems and Algorithms](https://dl.acm.org/doi/book/10.5555/2520147), 2012.
