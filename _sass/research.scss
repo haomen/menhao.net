@@ -1,0 +1,110 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700');
+
+/**
+ * Style variables
+ */
+$base-font-family: 'Source Code Pro', monospace !default;
+$base-font-size: 11px !default;
+$head-font-size: 15px !default;
+$mobile-font-size: 12px !default;
+$base-line-height: 1.5 !default;
+$container-width: 90% !default;
+$container-max-width: 600px !default;
+$code-background-color: #222222;
+$code-font-family: Consolas, 'Liberation Mono', Menlo, monospace;
+
+/**
+ Global
+**/
+
+body {
+    font-family: Tahoma, Verdana, Serif;
+    margin: 0px 0px 0px 0px;
+}
+
+p,
+td,
+div {
+    font-size: 11pt;
+}
+
+h1 {
+    font-size: 13pt;
+}
+
+h2 {
+    font-size: 13pt;
+}
+
+h3 {
+    font-size: 13pt;
+}
+
+a {
+    color: blue;
+    text-decoration: none;
+}
+
+a:hover {
+    color: red;
+    text-decoration: underline;
+}
+
+div#logo {
+    width: 100%;
+    height: 100px;
+    background-color: #336699;
+}
+
+img#logoimg {
+    position: relative;
+    top: 15px;
+    bottom: 15px;
+}
+
+div#copyright {
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+    font-family: Verdana, Sans, Serif;
+    font-size: 9pt;
+    padding: 8px;
+}
+
+.red {
+    color: #ff0000;
+}
+
+.text {
+    padding: 0px 8px;
+}
+
+div.textcontainer {
+    padding: 0px 8px;
+}
+
+span#rcs {
+    font-family: "Courier New", Courier, Times;
+}
+
+div#sidebarcontainer {
+    width: 27%;
+    float: right;
+    padding: 8px;
+    margin: 8px;
+    z-index: 1;
+}
+
+div#sidebar {
+    width: 94%;
+    border-collapse: collapse;
+    border: 1px solid black;
+    background-color: #ffffcc;
+    padding: 8px;
+}
+
+ul#contents {
+    padding-left: 0;
+    margin-left: 16px;
+}

@@ -9,6 +9,8 @@
     <meta name="robots" content="{{page.robots}}" />
     {% endif %}
 
+    <link rel="stylesheet" type="text/css" href="{{ "/assets/research.css" | relative_url }}">
+
     {%- if jekyll.environment == 'production' and site.google_analytics -%}
     {%- include google-analytics.html -%}
     {%- endif -%}
