@@ -4,6 +4,7 @@ title: Research
 permalink: /research
 ---
 
+---
 
 # 3D Color Laser Scanner
 
