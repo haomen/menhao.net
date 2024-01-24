@@ -81,7 +81,10 @@ div#copyright {
 }
 
 div.textcontainer {
-    padding: 0px 8px;
+    width: 90%;
+    max-width: 800px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 span#rcs {
@@ -107,4 +110,12 @@ div#sidebar {
 ul#contents {
     padding-left: 0;
     margin-left: 16px;
+}
+
+footer {
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 9pt;
+    margin: 20px auto 15px;
+    padding-top: 10px;
 }
