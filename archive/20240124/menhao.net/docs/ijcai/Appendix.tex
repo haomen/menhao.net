@@ -1,0 +1,240 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%  ltexpprt.tex  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is ltexpprt.tex, an example file for use with the SIAM LaTeX2E
+% Preprint Series macros. It is designed to provide double-column output. 
+% Please take the time to read the following comments, as they document
+% how to use these macros. This file can be composed and printed out for
+% use as sample output.
+
+% Any comments or questions regarding these macros should be directed to:
+%
+%                 Donna Witzleben
+%                 SIAM
+%                 3600 University City Science Center
+%                 Philadelphia, PA 19104-2688
+%                 USA
+%                 Telephone: (215) 382-9800
+%                 Fax: (215) 386-7999
+%                 e-mail: witzleben@siam.org
+
+
+% This file is to be used as an example for style only. It should not be read
+% for content.
+
+%%%%%%%%%%%%%%% PLEASE NOTE THE FOLLOWING STYLE RESTRICTIONS %%%%%%%%%%%%%%%
+
+%%  1. There are no new tags.  Existing LaTeX tags have been formatted to match
+%%     the Preprint series style.    
+%%
+%%  2. You must use \cite in the text to mark your reference citations and 
+%%     \bibitem in the listing of references at the end of your chapter. See
+%%     the examples in the following file. If you are using BibTeX, please
+%%     supply the bst file with the manuscript file.
+%% 
+%%  3. This macro is set up for two levels of headings (\section and 
+%%     \subsection). The macro will automatically number the headings for you.
+%%
+%%  5. No running heads are to be used for this volume.
+%% 
+%%  6. Theorems, Lemmas, Definitions, etc. are to be double numbered, 
+%%     indicating the section and the occurence of that element
+%%     within that section. (For example, the first theorem in the second
+%%     section would be numbered 2.1. The macro will 
+%%     automatically do the numbering for you.
+%%
+%%  7. Figures, equations, and tables must be single-numbered. 
+%%     Use existing LaTeX tags for these elements.
+%%     Numbering will be done automatically.
+%%   
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\documentclass[twoside,leqno,twocolumn]{article}  
+\usepackage{ltexpprt} 
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{epsf}
+\usepackage{amsmath}
+\usepackage{amsthm}
+%\input{psfig}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{amssymb}
+
+\begin{document}
+
+
+%\setcounter{chapter}{2} % If you are doing your chapter as chapter one,
+%\setcounter{section}{3} % comment these two lines out.
+
+\title{\Large Supplementary Material: Minimum Volume Multi-Task Learning}
+\author{Bo Liu\thanks{School of Computer Science, University of Massachusetts, boliu@cs.umass.edu}
+\and
+Ji Liu\thanks{Department of Computer Sciences, University of Rochester, jliu@cs.rochester.edu}
+\and 
+Sridhar Mahadevan\thanks{School of Computer Science, University of Massachusetts, mahadeva@cs.umass.edu}
+\and
+Yong Ge\thanks{Department of Computer Science, University of North Carolina at Charlotte, yong.ge@uncc.edu}
+\and
+Deguang Kong\thanks{Samsung Research America, San Jose, CA, 95134, doogkong@gmail.com} 
+}
+\date{}
+
+\maketitle
+
+
+
+First we define the operators necessary for the theoretical analysis.
+
+
+\section{Operators}
+
+\textbf{Definition 1}: (Operator $\rm{P}$) Given a matrix $\Gamma\in{\mathbb{R}^{m\times n}}$
+with the following representation
+\[
+\Gamma=U\left[{\begin{array}{cc}
+{\Gamma_{11}} & {\Gamma_{12}}\\
+{\Gamma_{21}} & {\Gamma_{22}}
+\end{array}}\right]{V^{T}},
+\]
+
+
+where $U\in{\mathbb{R}^{m\times m}}$, $V\in{\mathbb{R}^{n\times n}}$
+are two orthonormal matrix, define the operator (${\rm P,P_{c}}$) pair
+as follows
+\begin{eqnarray}
+\nonumber
+\Gamma_{1} &:=& {\rm{P}(\Gamma)}=U\left[{\begin{array}{cc}
+{\Gamma_{11}} & {\Gamma_{12}}\\
+{\Gamma_{21}} & 0
+\end{array}}\right]{V^{T}}\\
+\nonumber
+\Gamma_{2} &:=& {\rm{P_{c}}(\Gamma)=}U\left[{\begin{array}{cc}
+0 & 0\\
+0 & {\Gamma_{22}}
+\end{array}}\right]{V^{T}}
+\end{eqnarray}
+
+\noindent \textbf{Lemma 1}: Given an arbitrary matrix pair $(\Phi,\Gamma)\in{\mathbb{R}^{m\times n}}$
+with ${\rm {rank}}(\Phi)=r$, and the SVD of $\Phi$ is 
+\[
+\Phi=U\left[{\begin{array}{cc}
+\Sigma & 0\\
+0 & 0
+\end{array}}\right]{V^{T}},
+\]
+where $\varSigma$ is the diagonal matrix where the diagonal elements
+are the non-zero singular values of $\Phi$. Let $\Gamma\in{\mathbb{R}^{m\times n}}$
+represented as 
+\[
+\Gamma=U\left[{\begin{array}{cc}
+{\Gamma_{11}} & {\Gamma_{12}}\\
+{\Gamma_{21}} & {\Gamma_{22}}
+\end{array}}\right]{V^{T}},
+\]
+
+
+where $\Gamma_{11}\in{\mathbb{R}^{r\times r}}$, $\Gamma_{12}\in{\mathbb{R}^{(m-r)\times r}}$,
+$\Gamma_{21}\in{\mathbb{R}^{r\times(n-r)}}$, $\Gamma_{22}\in{\mathbb{R}^{(m-r)\times(n-r)}}$,
+and for $\Gamma_{1}:={P(\Gamma)},\Gamma_{2}:={P_{c}(\Gamma)}$, the
+following hold for $\Gamma_{1},\Gamma_{2}$ respectively:
+\begin{enumerate}
+\item For $\Gamma_{1}$, $\begin{array}{l}
+{\rm rank}({\Gamma_{1}})\le2r,\Phi\Gamma_{_{2}}^{T}=0,{\Phi^{T}}\Gamma_{_{2}}^ {}=0\end{array}$
+\item For $\Gamma_{2}$, there is additive relation of the trace norm of
+$(\Phi,\Gamma_{2})$ pair as $||\Phi+{\Gamma_{2}}|{|_{*}}=||\Phi|{|_{*}}+||{\Gamma_{2}}|{|_{*}}$
+\item for the matrix pair $(\Phi,\Gamma)\in{\mathbb{R}^{m\times n}}$, there
+is $||\Gamma|{|_{*}}+||\Phi|{|_{*}}-||\Phi+\Gamma|{|_{*}}\le2||{\Gamma_{1}}|{|_{*}}$
+\end{enumerate}
+
+
+\noindent \textbf{Definition 2}: (Operator ${\rm Q}$) Given a matrix $\Gamma\in{\mathbb{R}^{m\times n}}$, ${\rm Q (\Gamma)}$ is defined as
+\[{\rm{Q}}(\Gamma ) = \Gamma (:,{s_i}),{s_i} = \left\{ {i|\forall j,\Gamma [j,i] \ne 0} \right\}\]
+%
+namely, ${\rm Q (\Gamma)}$ is composed of the nonzero columns of $\Gamma$, and thus ${\rm Q}$ is used to extract the nonzero columns of a matrix. ${\rm Q}$ has the following property.
+
+\noindent \textbf{Lemma 2}\cite{mtl:kdd2011:ChenZY11}: Given an arbitrary matrix pair $(\Psi,\Lambda)\in{\mathbb{R}^{m\times n}}$,
+there is 
+\[||\Psi |{|_{2,1}} + ||\Lambda |{|_{2,1}} - ||\Psi  + \Lambda |{|_{2,1}} \le ||{\rm{Q}}(\Psi )|{|_{2,1}}\]
+
+We then present Assumption 1, which is the foundation of later
+theoretical analysis. We will denote our solution $W$ by the pair $(U,V)$, where in Algorithm 1, $W=U=V$, and in Algorithm 2, $W=U+V$.
+
+\noindent \textbf{Assumption 1}: For the solution $(U,V)$ pair, and a constant pair $p,q$ satisfying $p \le \min \left( {T,d} \right),q \le T$,  there exists a constant pair $(\kappa (p),\tau (q) )$ such that
+\begin{equation}
+\begin{array}{l}
+\kappa (p) = \mathop {\min }\limits_{U,V \in {\cal R}(p,q)} \frac{{||L(U + V)|{|_F}}}{{\sqrt N ||{\rm{P}}(U)|{|_*}}} > 0\\
+\tau (q) = \mathop {\min }\limits_{U,V \in {\cal R}(p,q)} \frac{{||L(U + V)|{|_F}}}{{\sqrt N ||{\rm{Q}}(V)|{|_{2,1}}}} > 0
+\end{array}
+\end{equation}
+where the restricted set $\mathcal{R}(p,q)$ is defined as
+\begin{equation}
+\mathcal{R}(p,q) = \left\{ {U,V|0 < {\rm{rank}}({\rm{P}}(U) \le p,0 < |{\rm{Q}}(V)| \le q} \right\}
+\end{equation}
+
+\section{Matrix Inversion}
+
+To cache the factorization for speeding up computation, we use the
+matrix inversion lemma stated as follows
+\begin{equation}
+{(P+\rho{A^{T}}A)^{-1}}={P^{-1}}-\rho{P^{-1}}{A^{T}}{(I+\rho A{P^{-1}}{A^{T}})^{-1}}A{P^{-1}}
+\end{equation}
+
+
+In our computation, as in  Algorithm 1, $\left({{\rho_{1}}{D^{2}}+{\rho_{3}}{\rm {I}}}\right)^{-1}$
+and ${\left( {\frac{1}{{T{n_i}}}{X_i}^T{X_i} + ({\rho _2} + {\rho _3})I} \right)^{ - 1}}$ can be
+computed likewise, and in Algorithm 2, ${\left({{\rho_{1}}{D^{2}}+{\rho_{2}}{\rm {I}}}\right)^{-1}}$
+and ${\left( {\frac{1}{{T{n_i}}}{X_i}^T{X_i} + {\rho _2}I} \right)^{ - 1}}$ can be computed
+likewise.
+
+
+
+\section{Measurements}
+nMSE, aMSE, WMSE and WRSE are defined as follows,
+%
+\begin{eqnarray}
+\nonumber
+{{\rm{WMSE}}} &=& \frac{1}{T}\sum\limits_{i = 1}^T {\frac{1}{{{n_i}}}} \sum\limits_{j = 1}^{{n_i}} {{{({y_{i,j}} - {x_{i,j}}{W_i})}^2}} \\
+\nonumber
+{{\rm{WRSE}}} &=& \frac{1}{N}\sum\limits_{i = 1}^T {\left( {{n_i}\sqrt {\sum\limits_{j = 1}^{{n_i}} {{{({y_{i,j}} - {x_{i,j}}{W_i})}^2}} } } \right)} \\
+\nonumber
+{{\rm{nMSE}}} &=& \frac{1}{T}\sum\limits_{i = 1}^T {\frac{1}{{{\rm{var}}({y_i}){n_i}}}\sum\limits_{j = 1}^{{n_i}} {{{({y_{i,j}} - {x_{i,j}}{W_i})}^2}} } \\
+\nonumber
+{a{\rm{MSE}}} &=& \frac{1}{T}\sum\limits_{i = 1}^T {\frac{1}{{||{y_i}||_2^2{n_i}}}\sum\limits_{j = 1}^{{n_i}} {{{({y_{i,j}} - {x_{i,j}}{W_i})}^2}} } \\
+\end{eqnarray}
+%
+where for (data, label) pair ($X_i,Y_i$) of the $i$-th task, $x_{i,j}$ is the $j$-th row of $X_i$, and   $y_{i,j}$ is the $j$-th entry of $Y_i$.
+
+%%We present Lemma 3 for the choice of the regularization parameter pair $(\alpha, \beta)$.
+%%
+%%\noindent \textbf{Lemma 3}:(Regularization parameters for MVMTL2) With high probability
+%%\begin{equation}
+%%{\rm {prob}}\ge{\rm {1-}}\frac{1}{T}\exp\left({-\frac{1}{2}(t-d\log(1+\frac{t}{d}))}\right),
+%%\end{equation}
+%%%
+%%there exist regularization parameters pair $\alpha, \beta$ such that if $\frac{\alpha }{{\sqrt T }},\beta  \ge \frac{{2\sigma }}{N}\sqrt {d + t} $,
+%%then the global minimizer ($U^*, V^*$) of problem (\ref{eq:nc2-dual}), and an arbitrary pair $U,V \in {\mathbb{R}^{d \times T}}$, the following holds,
+%%the following 
+%%\begin{equation}
+%%\begin{array}{*{20}{l}}
+%%\begin{array}{l}
+%%\frac{1}{{2T}}\sum\limits_{i = 1}^T {\frac{1}{{{n_i}}}||{f_i} - {X_i}{{(U^* + V^*)}_i})||_F^2} \\
+%% \le \frac{1}{{2T}}\sum\limits_{i = 1}^T {\frac{1}{{{n_i}}}||{f_i} - {X_i}{{(U + V)}_i})||_F^2} 
+%%\end{array}\\
+%%{ + \alpha ||{\rm P}(U - U^*)|{|_*} + \beta ||{\rm Q}(V - V^*)|{|_{2,1}}}
+%%\end{array}
+%%\end{equation}
+%%%
+%%where $(\cdot)_{i}$ denotes the $i$-th column of the corresponding matrix.
+%%The existence and uniqueness of decomposing a matrix to a sum of a low-rank component and a column-wise group sparse component have been studied in several literature such as \cite{hsu2011robust} and \cite{xu2010robust}. 
+
+
+
+
+\bibliographystyle{plain}
+\bibliography{icdm2013}
+
+
+\end{document}

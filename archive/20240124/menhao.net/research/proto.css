@@ -1,0 +1,291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Welcome to LI, Xin's Homepage!</title>
+		<meta http-equiv="Content-Language" content="en-us" />
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<link rel="stylesheet" href="index.css" type="text/css" />
+		<script language="javascript" type="text/javascript" src="rss.js"></script>
+	</head>
+	<body onload="RSSInit();">
+		<div id="logo">
+			<img id="logoimg" border="0" src="logo.jpg" alt="Phantasm Studio Logo, 9,196 octets" width="333" height="70" />
+		</div>
+
+		<div class="textcontainer">
+			<div id="sidebarcontainer">
+				<div id="sidebar">
+					<p align="center"><b>This site is IPv6 ready</b></p>
+					<p align="center" id="ipv6" style="display:none"><b>Congratulations!  You are visiting from IPv6!</b></p>
+					<p align="center"><!-- BEGIN WORLD IPV6 DAY BADGE: BLUE: 128px --><a href="http://www.worldipv6day.org"><img src="/images/IPv6-badge-blue-128-trans.png" height="128" width="128" title="WORLD IPV6 DAY is 8 June 2011 -- The Future is Forever" alt="WORLD IPV6 DAY is 8 June 2011 -- The Future is Forever"></a><!-- END WORLD IPV6 DAY BADGE: BLUE: 128px --></p>
+					<hr />
+					<p align="center"><b>Quick Links</b></p>
+					<ul type="square">
+						<li>
+							<a href="http://mars.delphij.net/"><b>Mars</b> (What I read everyday)</a>
+						</li>
+						<li>
+							<a href="http://blog.delphij.net/"><b>Chaos</b> (blog of mine)</a>
+							<ul type="disc" id="contents" style="display:none"><li>Loading...</li></ul>
+						</li>
+						<li>
+							<a href="http://g2.delphij.net/">Photo <b>gallery</b></a>
+						</li>
+						<li>
+							<a href="http://research.delphij.net/"><b>Research</b> (some of my code/design scribble)</a>
+						</li>
+						<li>
+							<a href="http://portsmon.freebsd.org/portsconcordanceformaintainer.py?maintainer=delphij@FreeBSD.org">FreeBSD <b>ports</b> maintained by me</a>
+						</li>
+						<li>
+							<a href="http://cnsnap.cn.freebsd.org/zh_CN"><b>FreeBSD Website</b> Simplified Chinese Translation (WIP snapshot)</a>
+						</li>
+						<li>
+							<a href="http://cnsnap.cn.freebsd.org/doc/zh_CN.GB2312/books/handbook"><b>FreeBSD Handbook</b> Simplified Chinese Translation (latest WIP snapshot)</a>
+						</li>
+						<li>
+							<a href="http://www.freebsdchina.org/">China <b>Community</b> of FreeBSD</a>
+						</li>
+					</ul>
+				<hr />
+				<p align="center"><b>My wishlist</b></p>
+				<ul type="square">
+					<li>
+						A copy of <a href="http://www.amazon.com/exec/obidos/tg/detail/-/0375708111/ref=pd_ts_c_th_3/102-6411101-7167368?v=glance&amp;s=books&amp;n=13439">The
+						Elegant Universe: Superstrings, Hidden Dimensions, and the Quest for the Ultimate Theory</a>.
+					</li>
+					<li>
+						Pursue a Ph.D. on Computer Science.  <a href="mailto:d@delphij.net">Contact me</a> for more details.
+					</li>
+				</ul>
+				<hr />
+				<!-- CustomSearch Google -->
+<script>
+  (function() {
+    var cx = '002204549355804689262:w3o5bvedsii';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:searchbox-only></gcse:searchbox-only>
+<!-- CustomSearch Google -->
+				</div>
+			</div>
+			<h3>Who?</h3>
+			<p>Hi there, my name is LI, Xin. I am more or less a
+				computer geek living in Mountain View, California, USA.
+			<a href='https://www.ohloh.net/accounts/119643?ref=Detailed'><img alt='Ohloh profile for delphij' height='35' src='https://www.ohloh.net/accounts/119643/widgets/account_detailed.gif' width='191' /></a></p>
+			<pre>-----BEGIN GEEK CODE BLOCK-----
+Version: 3.12
+GCS d- s+:+ a- C++ UB++++ P+ L- E--- W++ N++ o-- K- w++ 
+O--- M+ V-- PS+ PE- Y+ PGP+++ t+++ 5 X++ R+++ tv-- b++ DI+ D+ 
+G+ e++ h--- r+++ y+++ 
+------END GEEK CODE BLOCK------</pre>
+			<p>You may have noticed &quot;Phantasm Studio&quot; here. It is my
+				&quot;official&quot; studio name at Dreamland Computing, which was an organization that shares
+				computer technology between the group until I have completed my High School, which gave me
+				some important experiences and made many good friends.</p>
+			<p>I enjoyed music (specifically, classical music), stamp collection, and
+				mathematics (Don't tell me if you are sick of this, I said I liked it, not that you have
+				to like it too :-) ), astronomy, art design, as well as my major.  Recently, I find myself
+				enjoy <a href="http://g2.delphij.net/main.php">photography</a> a bit, also,
+				I enjoy swimming during my spare time.</p>
+			<p>As someone who blows things up (hey, ain't it evil Xin?) in his early age, I am eager to know OS
+				Kernel Internals, Distributed Computing Systems especially P2P systems, and information
+				security.  My life is not full of these nuts, of course, but I enjoy solving problems that
+				are really challenging.</p>
+			<p>I could not get on well with everyone, but I would like to be your friend.</p>
+			<p>Share more bits about me... I can speak English, Mandarin, and <a href="http://www.esperanto.net/">
+				Esperanto</a>. It will be nice if you can talk Esperanto, too :-)  I am eager to learn some
+				other languages as time permits.</p>
+			<p>My <a href="http://bloginality.love-productions.com">Bloginality</a> is <a href="http://bloginality.love-productions.com/istj.php">ISTJ</a>.</p>
+			<p>You can also <a href="http://www.linkedin.com/in/delphij"><img src="https://www.linkedin.com/img/webpromo/btn_viewmy_160x33.gif" width="160" height="33" border="0" alt="View Xin LI's profile on LinkedIn" /></a>.</p>
+			<h3>What?</h3>
+			<p>Presently I am working as a full time FreeBSD developer.</p>
+			<p>I am a <a href="http://www.FreeBSD.org">FreeBSD</a> committer since September 14, 2004.
+				Presently I have write access to all FreeBSD trees, which includes the src/, doc/ and
+				ports/ tree.  My primary focus is on the File System, the Virtual Memory System,
+				mostly on stability, performance as well as code cleanness.  I am a member of the
+				FreeBSD <a href="mailto:secteam@FreeBSD.org">security team</a> and
+				<a href="mailto:ports-security@FreeBSD.org">ports security team</a>.</p>
+			<h3>Academic life</h3>
+			<p>I have received my bachelor's degree in Computer Science in July, 2004.
+				Before that, I was an undergraduate student of <a href="http://www.bjut.edu.cn/college/jsjxy/Parts/Students/undercourses.htm">
+				Computer Science and Technology</a>, at the <a href="http://www.bjut.edu.cn/college/jsjxy/">
+				School of Computer Science</a> under <a href="http://www.bjut.edu.cn">Beijing
+				University of Technology</a>. I used to be a student at the <a href="http://www.rdfz.cn">
+				High School</a> affiliated to <a href="http://www.ruc.edu.cn">Renmin University of China</a>.</p>
+			<p>I am a member of the <a href="http://www.acm.org/">Association for Computing Machinery</a> and the <a href="http://www.usenix.org/">Advanced Computing Systems
+				Association</a>.</p>
+			<p>I am a <a href="http://www.he.net/">HE.net</a>
+				<a href="http://ipv6.he.net/certification/scoresheet.php?pass_name=delphij">certified IPv6 Sage</a>
+				and yes, this site runs on IPv6.</p>
+			<h3>What I have done</h3>
+			<p>I got actively involved in computer science related activities during my High
+				School and University life. I have fortunately begun my computing life
+				much earlier than peer groups, and earned wide recognize of my
+				expertise.</p>
+			<p>I was principal technical consultant of networking security technology at High
+				School, and used to be president at Students' Association of Computer Machinery
+				at School of Computer Science under my University.</p>
+			<p>During my university campus life I have been involved with many practical
+				projects including designing and implementing a chunk of MIS and CMS systems
+				based on both Windows &reg; and UNIX &reg;-alike operating systems. My programming
+				and debugging experiences has earned me good reputation and I was the most
+				trusted technical consult in my local development group. While there, I have
+				organized many events, projects on practice and got awarded with several scholarships,
+				including two times to award as "Excellent Students' Cadre".</p>
+			<p>I have also received <a href="http://www2.ccw.com.cn/04/0408/a/0408a24_2.asp">2004
+				China Computer World Scholarship</a> and 2003 Kitagawa Scholarship for my
+				contribution on technical research at university.</p>
+			<p>I used to be a regular member of ACM/ICPC representative team of my university
+				and get participated twice in 2002's Beijing and Xi'an ACM/ICPC contests
+				(Honorable Mention). I have been lecturer in later campus ACM/ICPC interest
+				group activities and helped many freshmen to got their way to get anticipated
+				in our local ACM/ICPC contests in the university.&nbsp;
+				Proudly my university has used our team name, &quot;Pioneer&quot;, as
+				the name of intramural ICPC competitions, for a remember of
+				our contributions.</p>
+			<p>I have jointly founded <a href="http://www.frontfree.net" rel="nofollow">Frontfree Technology
+				Network</a>, an academic website on Computer Science and Technology, along
+				with my colleagues in 2001. The website has earned its fame because its
+				professionalism on academic research and technical applications on wide areas
+				of the computer science. When acting as the principal technical officer and
+				executive officer during late 2001 to early 2003, I have accomplished my
+				mission with a sign of having a more than five times of daily independent
+				visitors and significant increase of registered users at the website.</p>
+			<p>When working as a principal engineer at the software development teams I got
+				involved, I have promoted my beliefs of how to produce high quality software,
+				as well as significant techniques to guarantee them. I have published a number
+				of related articles and papers on several mediums, including on magazines and
+				on website.</p>
+			<p>I have paid most of my attention into the research of Computer Science, and what
+				have interested me most are: Distributed and Parallel Computing (especially,
+				peer to peer and grid computing), Information Security, Artificial
+				Intelligence, Compile Time Optimizations, as well as Operating System
+				technologies.</p>
+			<p>During 2004-2006, I have helped my employer to improve the overall quality of the
+				free e-mail system.  By adopting a new storage architecture, we have drastically
+				reduced the cost of system.  Also, I have replaced the MX servers (which used
+				to run qmail) with <a href="http://www.postfix.org/">postfix</a>,
+				also, I have done a new design and implementation of the anti-spam engine which
+				have reduced the misidentified spams to improve the user experience about our
+				e-mail system, while cutting spam emails more effectively, and is much more
+				conformable to existing Internet standards.</p>
+			<p>Presently, I am working on the Operating System infrastructure in performance and
+				stability aspects.  My current job is to oversee development on large Internet
+				system deployment mechanism, to improve FreeBSD's performance, etc.</p>
+			<h3>What I am doing</h3>
+			<p>As a core member and co-PI of <a href="http://www.freebsdchina.org/">the FreeBSD
+					China Community</a> and project principal of <a href="http://www.freebsd.org.cn">the FreeBSD
+					Simplified Chinese Project</a>, I played a key role of bringing the
+				operating system a better i18n and l10n support, as well as making the
+				documentation into the Chinese Language. Currently I am organizing a group of
+				volunteers working on the project.</p>
+			<p>I am very actively involved with the FreeBSD Project.  I liked the "shut up and
+				code" mot from the development server of the FreeBSD Project, and the *BSD
+				philosophy.  <a href="http://www.dragonflybsd.org">DragonFly</a>, on the
+				other hand, provided a different way of design and implementation approach
+				that I am very interested to, and I am working to reduce the diverge between
+				the two projects.</p>
+			<p>I used to work on a project called "<a href="http://wiki.freebsd.org/TMPFS">TMPFS</a>"
+				which is an efficient in-memory file system, and was first shipped with
+				FreeBSD 7.0-RELEASE.</p>
+			<p>Recently I am working with others to bring a newer <a href=http://hub.opensolaris.org/bin/view/Community+Group+zfs/whatis">ZFS</a>
+				to FreeBSD system as well as improvements to FreeBSD hardware drivers,
+				userland utilities, as well as system libraries.</p>
+			<h3>What do I want</h3>
+			<p>I would like to pursue a Ph.D degree in Computer Science specialized in High Performance Computing and
+				P2P Computing or other related fields. This will be my main effort in the future years,
+				and please contact me if you want to offer some help.</p>
+			<h3>Contact</h3>
+			<p>The easiest (and preferred) way to contact me is e-mail, the preferred
+				address is <a href="mailto:d@delphij.net">d@delphij.net</a>.
+				Other addresses <i>may</i> work, but not guaranteed, except those
+				got a promise from me.  When you need increased security, e.g.
+				in case confidential is needed, PGP encryption or signature is the
+				preferred way, however, these technique can only be considered as
+				an improvement to plain text e-mails, not an ultimate solution to security.
+				You can obtain my PGP public key <a href="delphij.asc">here</a>, as I prefer
+				encrypted and signed e-mails. There are several other ways to contact with me,
+				for example, you can find me through MSN: <b>delphij@msn.com</b>.</p>
+			<p><b style="color: red">NOTE</b> MSN Account and Mobile Phone is only available for those I am aware
+				in my real life.  Also, I think it is important to share knowledge with others, so I will
+				never answer a single question if I have no idea about who you are.  If you want me to
+				answer your question, post it publicly!</p>
+			<p>Please feel free to <a href="mailto:d@delphij.net?subject=Question about you">write
+				me</a> if you need more information about myself :-)</p>
+			<h4>Note about E-Mail Security</h4>
+			<p>Recently I was made aware that there <i>is</i> some
+			forged e-mail that claims to be from me.&nbsp; Please keep
+			in mind that:</p>
+			<ul>
+				<li type="square">Letters from me is consistent in
+				style.&nbsp; Be more careful if you feel it changed!</li>
+				<li type="square">An e-mail from my @FreeBSD.org should
+				be either a PR, or from hub.FreeBSD.org, or
+				freefall.FreeBSD.org.&nbsp; Note that I do not typically
+				use my @FreeBSD.org address even for FreeBSD related
+				letters.</li>
+				<li type="square">The <i><b>preferred</b></i> outgoing address is
+					delphij@delphij.net,
+					it is protected with <a href="http://www.openspf.org/">
+					Sender Permitted From</a> and most e-mails from that
+					address <u>are typically PGP signed</u>
+					using at least SHA256 as hash algorithm.&nbsp;
+					My PGP key is available from the
+					<a href="http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/pgpkeys-developers.html#PGPKEY-DELPHIJ">The
+						FreeBSD Handbook</a> and <a href="delphij.asc">here</a>.</li>
+				<li type="square">When in doubt, please be sure to get
+				PGP signed confirmation from me!</li>
+			</ul>
+			<hr />
+			<h3>A brief history of my website</h3>
+			<a href="http://www.freebsd.org/"><img border="0" src="i/powerani.gif" width="171" height="64" align="right" alt="Powered by FreeBSD" /></a>
+			<p>I have been on Internet when I was in Middle School. A first version of my own website
+				appeared on the Internet in September 1997, which is mostly related to Computer Virus and
+				Security Technologies beacause I was so actively involved in these areas these days.
+				I have abandoned that since then, as I was made aware that it is not the right things to
+				do.  After that, I have re-designed several new versions of the website, but have
+				not found someone to host it.  I used to have a guestbook for a short while but that
+				was abandoned too.</p>
+			<a href="http://validator.w3.org/check?uri=referer"><img border="0"
+			  src="i/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional" height="31" width="88" align="left" /></a>
+			<p>A third re-design of my homepage has been done but never been published. This is a simplified
+				re-implement of my second homepage.  On June 2006, the site has been converted to use
+				CSS for its layout, and a RSS feed reader is implemented using JavaScript with asynchronous
+				XML support found in recent web browsers.</p>
+			<h3>Future development of this site</h3>
+			<p>My everyday life is busy, so I hardly have some time to improve my own homepage.
+				The next generation of this site would provide some new, and let me say,
+				more popular features, a newly designed interface to make information
+				more easy to find.</p>
+			<hr />
+			<a href="mailto:denny.h@delphij.net" style="display: none;">denny.h@delphij.net</a>
+		</div>
+		<div id="copyright">
+			(Last updated on UTC:
+				<span id="rcs">$Phantasm: delphijweb/www/index.html,v 1.234 2010/05/19 21:07:06 delphij Exp $</span>)<br /><br />
+			Copyright &copy; 2004-2010 by LI, Xin. All rights reserved.<br />
+			Copyright &copy; 1997-2006 Phantasm Studio, Dreamland Computing. All rights
+			reserved.<br />
+			I am proud to say that this website is Powered by <a href="http://www.FreeBSD.org/">FreeBSD</a>.<br />
+			This site is mirrored by <a href="http://www.cvsup.org">CVSup &reg;</a> developed by
+			<a href="http://www.polstra.com">John D. Polstra</a>.
+		</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-468342-1', 'auto');
+  ga('send', 'pageview');
+</script>
+	</body>
+</html>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Markus Beissinger]]></title><description><![CDATA[artificial intelligence & entrepreneurship]]></description><link>http://markus.com</link><generator>NodeJS RSS Module</generator><lastBuildDate>Wed, 28 Jan 2015 18:01:32 GMT</lastBuildDate><atom:link href="http://markus.com/rss/" rel="self" type="application/rss+xml"/><author><![CDATA[Markus Beissinger]]></author><ttl>60</ttl><item><title><![CDATA[How to install Theano on Amazon EC2 GPU instances for deep learning]]></title><description><![CDATA[<p>[update] If you would like to skip the instructions and just install from an AMI, search the community for ami-1f3e225a (Ubuntu 14.04 - CUDA 6.5 - Theano)</p>
+
+<p><a href='http://deeplearning.net/software/theano/' >Theano</a> is an amazing Python package for deep learning that can utilize NVIDIA's CUDA toolkit to run on the gpu. The gpu is orders of magnitude faster than the cpu for math operations (such as matrix multiplication), which is essential for many machine learning algorithms. While setting up AWS to run my thesis experiments, I realized many instructions were out of date. Hopefully these steps will help you get your deep learning models up and running on AWS. These instructions use Ubuntu 14.04 64-bit with Cuda 6.5 on a g2.2xlarge instance.</p>
+
+<h1 id="creatinganec2g22xlargeinstance">Creating an EC2 g2.2xlarge instance</h1>
+
+<p>Log into your AWS management console and click over to EC2. There are two options for creating your instance:</p>
+
+<ul>
+<li><strong>On-Demand Instances</strong>: This option guarantees that your have your section of a machine for computing. Use this option if you cannot handle potential interrupts and are willing to pay more. As of this writing, a g2.2xlarge instance costs $0.65/hr. To create a dedicated instance, go to "Instances" and click "Launch Instance".</li>
+<li><strong>Spot Instances</strong>: This option gives you left-over compute power at a much cheaper rate. Use this option if you can hande potential interrupts. Spot instances use a bidding system to determine who gets the left-over compute power; you can look at the history of rates under "Spot Requests". As of this writing, a g2.2xlarge spot instance costs $0.0642/hr (10% of the price!) and seems fairly stable over the last few months. I ended up using a few spot requests, bidding $0.07.</li>
+</ul>
+
+<p>When choosing an AMI to use for the instance, pick the latest 64-bit Ubuntu (I used ami-076e6542, which is Ubuntu 14.04). If you would rather skip and use the AMI that I made with these instructions, search for ami-1f3e225a (Ubuntu 14.04 - CUDA 6.5 - Theano) instead. You should also set up the security group for your IP to have ssh access, and download a new private/public key file.</p>
+
+<h1 id="installingtheanoanditsdependencies">Installing Theano and its dependencies</h1>
+
+<p>Follow the instructions on <a href='http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html' >Amazon</a> to ssh into your instance. For Ubuntu on AWS, I found you have to use <code>ssh -i [path/to/key.pem] ubuntu@[DNS]</code>.</p>
+
+<p>Once you ssh into the instance, I recommend using screens (now updated to Tmux) to keep the session open so your program can run without the terminal window being open. Here are all the commands and the order I used to set up Theano:</p>
+
+<p><code>sudo apt-get update</code> update the default packages</p>
+
+<p><code>sudo apt-get -y dist-upgrade</code> upgrade</p>
+
+<p><code>screen -S “theano”</code> create a new screen named theano (or look at using Tmux instead)</p>
+
+<p><code>sudo apt-get install -y gcc g++ gfortran build-essential git wget linux-image-generic libopenblas-dev python-dev python-pip python-nose python-numpy python-scipy</code> install all the dependencies</p>
+
+<p><code>sudo pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git</code> install the bleeding-edge version of Theano</p>
+
+<p><code>sudo wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_6.5-14_amd64.deb</code> grab the latest (6.5) cuda toolkit.</p>
+
+<p><code>sudo dpkg -i cuda-repo-ubuntu1404_6.5-14_amd64.deb</code> depackage Cuda</p>
+
+<p><code>sudo apt-get update</code> adds the package</p>
+
+<p><code>sudo apt-get install -y cuda</code> installs cuda driver (this takes a while)</p>
+
+<p><code>echo -e "\nexport PATH=/usr/local/cuda-6.5/bin:$PATH\n\nexport LD_LIBRARY_PATH=/usr/local/cuda-6.5/lib64" &gt;&gt; .bashrc</code> update the path to include cuda nvcc and ld_library_path</p>
+
+<p><code>sudo reboot</code> reboot the system because cuda wants you to</p>
+
+<p>Wait a little bit for the reboot and then ssh back into the instance.</p>
+
+<p><code>cuda-install-samples-6.5.sh ~/</code>
+(can now cd into NVIDIA_CUDA-6.5_Samples/1_Utilities/deviceQuery, type 'make', and then run ./deviceQuery to check to see if the gpu is working)</p>
+
+<p><code>echo -e "\n[global]\nfloatX=float32\ndevice=gpu\n[mode]=FAST_RUN\n\n[nvcc]\nfastmath=True\n\n[cuda]\nroot=/usr/local/cuda" &gt;&gt; ~/.theanorc</code> set up the theano config file to use gpu by default</p>
+
+<p>That's it! Now you can use git to pull whatever repo you need and test Theano. I recommend using the test script from Theano's site <a href='http://deeplearning.net/software/theano/tutorial/using_gpu.html' >here</a>.</p>
+
+<p>These instructions were partially gathered from <a href='http://erikbern.com/?p=737' >Erik Bernhardsson</a> and <a href='http://vasir.net/blog/opencl/installing-cuda-opencl-pyopencl-on-aws-ec2' >Erik Hazzard</a>, as well as the Ubuntu instructions from <a href='http://deeplearning.net/software/theano/install_ubuntu.html' #install-ubuntu">Theano</a>.</p>
+
+<h1 id="optimizations">Optimizations</h1>
+
+<p><a href='http://techblog.netflix.com/2014/02/distributed-neural-networks-with-gpus.html' >Netflix</a> has a great post showing that you can customize some functions in the Cuda kernel to speed up Theano by ~70%. I haven't done this, but it is definitely something to check out.</p>]]></description><link>http://markus.com/install-theano-on-aws/</link><guid isPermaLink="false">f02ef568-fe34-4f1f-b588-4c6aefcf340e</guid><dc:creator><![CDATA[Markus Beissinger]]></dc:creator><pubDate>Thu, 02 Oct 2014 07:23:55 GMT</pubDate></item><item><title><![CDATA[Deep Learning 101]]></title><description><![CDATA[<p>Deep learning has become something of a buzzword in recent years with the explosion of 'big data', 'data science', and their derivatives mentioned in the media. Justifiably, deep learning approaches have recently blown other state-of-the-art machine learning methods out of the water for standardized problems such as the MNIST handwritten digits dataset. My goal is to give you a layman understanding of what deep learning actually is so you can follow some of my thesis research this year as well as mentally filter out news articles that sensationalize these buzzwords.</p>
+
+<h1 id="intro">Intro</h1>
+
+<p><img src='http://markus.com/content/images/2013/Nov/mnist_overview.jpg'  alt="MNIST" />
+(<a href='http://www.montefiore.ulg.ac.be/' ~maree/mnist-overview-h.gif">source</a>)</p>
+
+<p>Imagine you are trying to recognize someone's handwriting - whether they drew a '7' or a '9'. From years of seeing handwritten digits, you automatically notice the vertical line with a horizontal top section. If you see a closed loop in the top section of the digit, you think it is a '9'. If it is more like a horizontal line, you think of it as a '7'. Easy enough. What it took for you to correctly recognize the digit, however, is an impressive display of fitting smaller features together to make the whole - noticing contrasted edges to make lines, seeing a horizontal vs. vertical line, noticing the positioning of the vertical section underneath the horizontal section, noticing a loop in the horizontal section, etc. </p>
+
+<p>Ultimately, this is what deep learning or representation learning is meant to do: discover multiple levels of features that work together to define increasingly more abstract aspects of the data (in our case, initial image pixels to lines to full-blown numbers). This post is going to be a rough summary of two main survey papers:</p>
+
+<ul>
+<li><a href='http://arxiv.org/abs/1206.5538' >Representation Learning: A Review and New Perspectives</a> by Yoshua Bengio, Aaron Courville, and Pascal Vincent</li>
+<li><a href='http://arxiv.org/abs/1305.0445' >Deep Learning of Representations: Looking Forward</a> by Yoshua Bengio</li>
+</ul>
+
+<h1 id="whydowecareaboutdeeplearning">Why do we care about deep learning?</h1>
+
+<p>Current machine learning algorithms' performance depends heavily on the particular features of the data chosen as inputs. For example, document classification (such as marking emails as spam or not) can be performed by breaking down the input document into <a href='http://en.wikipedia.org/wiki/Bag-of-words_model' >bag-of-words</a> or <a href='http://en.wikipedia.org/wiki/N-grams' #Applications_and_considerations">n-grams</a> as features. Choosing the correct feature representation of input data, or feature engineering, is a way that people can bring prior knowledge of a domain to increase an algorithm's computational performance and accuracy. To move towards general artificial intelligence, algorithms need to be less dependent on this feature engineering and better learn to identify the explanatory factors of input data on their own.</p>
+
+<p>Deep learning tries to move in this direction by capturing a 'good' representation of input data by using compositions of non-linear transformations. A 'good' representation can be defined as one that disentangles underlying factors of variation for input data. It turns out that deep learning approaches can find useful abstract representations of data across many domains: it has had great commercial success powering most of Google and Microsoft's current speech recognition, image classification, natural language processing, object recognition, etc. Facebook is also planning on using deep learning approaches to understand its users<sup><a href='http://www.technologyreview.com/news/519411/facebook-launches-advanced-ai-effort-to-find-meaning-in-your-posts/'  style="text-decoration:none">1</a></sup>. Deep learning has been so impactful in industry that MIT Technology Review named it as a top-10 breakthrough technology of 2013<sup><a href='http://www.technologyreview.com/featuredstory/513696/deep-learning/'  style="text-decoration:none">2</a></sup>.</p>
+
+<p>So how do you build a deep representation of input data? The central idea is to learn a hierarchy of features one level at a time where the input to one computational level is the output of the previous level for an arbitrary number of levels. Otherwise, 'shallow' representations (most current algorithms like regression or svm) go directly from input data to output classification. </p>
+
+<p>One good analogue for deep representations is neurons in the brain (a motivation for artificial neural networks) - the output of a group of neurons is agglomerated as the input to more neurons to form a hierarchical layer structure. Each layer <em>N</em> is composed of <em>h</em> computational nodes that connect to each computational node in layer <em>N+1</em>. See the image below for an example: <br />
+<img src='http://markus.com/content/images/2013/Nov/nnet.png'  alt="neural network layers" />
+(<a href='http://www.codeproject.com/KB/cs/BackPropagationNeuralNet/fig1_nnet_thinner.png' >source</a>)</p>
+
+<h1 id="interpretationsofrepresentationlearning">Interpretations of representation learning</h1>
+
+<p>There are two main ways to interpret the computation performed by these layered deep architectures:</p>
+
+<ul>
+<li><strong>Probabilistic graphical models</strong> have nodes in each layer that are considered as <a href='http://en.wikipedia.org/wiki/Latent_variable' >latent random variables</a>. In this case, you care about the probability distribution of the input data <em>x</em> and the hidden latent random variables <em>h</em> that describe the input data in the joint distribution <em>p(x,h)</em>. These latent random variables describe a distribution over the observed data.</li>
+<li><strong>Direct encoding (neural network) models</strong> have nodes in each layer that are considered as computational units. This means each node <em>h</em> performs some computation (normally nonlinear like a <a href='http://en.wikipedia.org/wiki/Sigmoid_function' >sigmoidal function</a>, <a href='http://functions.wolfram.com/ElementaryFunctions/Tanh/introductions/Tanh/ShowAll.html' >hyperbolic tangent nonlinearity</a>, or <a href='http://en.wikipedia.org/wiki/Rectifier_' (neural_networks)">rectifier linear unit</a>) given its inputs from the previous layer.</li>
+</ul>
+
+<p>To get started, <a href='http://en.wikipedia.org/wiki/Principal_component_analysis' >principal component analysis</a> (PCA) is a simple feature extraction algorithm that can span both of these interpretations. PCA learns a linear transform <em>h = f(x) = W<sup>T </sup>x + b</em> where <em>W</em> is a weight matrix for the inputs <em>x</em> and <em>b</em> is a bias. The columns of the <em>d<sub>x </sub> x d<sub>h </sub></em> matrix <em>W</em> form an <a href='http://en.wikipedia.org/wiki/Orthogonal_basis' >orthogonal basis</a> for the <em>d<sub>h </sub></em> <a href='http://en.wikipedia.org/wiki/Orthogonal' >orthogonal</a> directions of greatest variance in the input training data <em>x</em>. The result is <em>d<sub>h </sub></em> features that make representation layer <em>h</em> that are decorrelated. <br />
+<img src='http://markus.com/content/images/2013/Nov/pca.png'  alt="PCA" />
+(<a href='http://www.simafore.com/Portals/64283/images/principal-component-analysis-simple-explanation.png' >source</a>)</p>
+
+<p>From a probabilistic viewpoint, PCA is simply finding the principal <a href='http://en.wikipedia.org/wiki/Eigenvectors' >eigenvectors</a> of the covariance matrix of the data. This means that you are finding which features of the input data can explain away the most variance in the data<sup><a href='http://www.stat.berkeley.edu/' ~jordan/688.pdf" style="text-decoration:none">3</a></sup>.</p>
+
+<p>From an encoding viewpoint, PCA is performing a linear computation over the input data to form a hidden representation <em>h</em> that has a lower dimensionality than the data.</p>
+
+<p>Note that because PCA is a linear transformation of the input <em>x</em>, it cannot really be stacked in layers because the composition of linear operations is just another linear operation. There would be no abstraction benefit of multiple layers. To form powerful deep representations, we will look at stacking <a href='http://en.wikipedia.org/wiki/Restricted_Boltzmann_machine' >Restricted Boltzmann Machines</a> (RBM) from a probability viewpoint and nonlinear <a href='http://en.wikipedia.org/wiki/Autoencoder' >auto-encoders</a> from a direct encoding viewpoint.</p>
+
+<h1 id="probabilisticmodelsrestrictedboltzmannmachinerbm">Probabilistic models: restricted boltzmann machine (RBM)</h1>
+
+<p>A <a href='http://en.wikipedia.org/wiki/Boltzmann_machine' >Boltzmann machine</a> is a network of symmetrically-coupled binary random variables or units. This means that it is a fully-connected, undirected graph. This graph can be divided into two parts:</p>
+
+<ol>
+<li>The <em>visible</em> binary units <em>x</em> that make up the input data and  </li>
+<li>The <em>hidden</em> or latent binary units <em>h</em> that explain away the dependencies between the visible units <em>x</em> through their mutual interactions.</li>
+</ol>
+
+<p><img src='http://markus.com/content/images/2013/Nov/boltzmann.png'  alt="Boltzmann machine" /></p>
+
+<p>(A graphical representation of an example Boltzmann machine. Each undirected edge represents dependency; in this example there are 3 hidden units and 4 visible units. <a href='http://en.wikipedia.org/wiki/Boltzmann_machine' >source</a>)</p>
+
+<p>Boltzmann machines describe this pattern of interaction through the distribution over the joint space <em>[x,h]</em> with the <a href='http://en.wikipedia.org/wiki/Mathematical_optimization' #Optimization_problems">energy function</a>: <br />
+<img src='http://markus.com/content/images/2013/Nov/boltzmann_energy-1.png'  alt="Boltzmann energy function" /></p>
+
+<p>Where the model parameters Θ are {<em>U,V,W,b,d</em> }.</p>
+
+<p>Trying to evaluate conditional probabilities over this fully connected graph ends up being an intractable problem. For example, computing the conditional probability of hidden variable given the visibles, <em>P</em>(<em>h<sub>i </sub></em> | <em>x</em>), requires marginalizing over all the other hidden variables. This would be evaluating a sum with 2<sup><em>d<sub>h </sub> - 1</em></sup> terms.</p>
+
+<p>However, we can restrict the graph from being fully connected to only containing the interactions between the visible units <em>x</em> and hidden units <em>h</em>. <br />
+<img src='http://markus.com/content/images/2013/Nov/Restricted_Boltzmann_machine-1.png'  alt="restricted boltzmann" />
+(<a href='http://upload.wikimedia.org/wikipedia/commons/e/e8/Restricted_Boltzmann_machine.svg' >source</a>)</p>
+
+<p>This gives us an RBM, which is a <em>bipartite</em> graph with the visible and hidden units forming distinct layers. Calculating the conditional distribution <em>P</em>(<em>h<sub>i </sub></em> | <em>x</em>) is readily tractable and now factorizes to: <br />
+<img src='http://markus.com/content/images/2013/Nov/rbm_equation-2.png'  alt="rbm eqn" /></p>
+
+<p>Very successful deep learning algorithms stack multiple RBMs together, where the hiddens <em>h</em> from the visible input data <em>x</em> become the new input data for another RBM for an arbitrary number of layers. <br />
+<img src='http://markus.com/content/images/2013/Nov/stacked_rbm.jpg'  alt="stacked rbm" /></p>
+
+<p>There are a few drawbacks to the probabilistic approach to deep architectures:</p>
+
+<ol>
+<li>The posterior distribution <em>P</em>(<em>h<sub>i </sub></em> | <em>x</em>) becomes incredibly complicated if the model has more than a few interconnected layers. We are forced to resort to sampling or approximate inference techniques to solve the distribution, which has computational and approximation error prices.  </li>
+<li>Calculating this distribution over latent variables still does not give a usable <em>feature vector</em> to train a final classifier to make this algorithm useful for AI tasks. For example, we calculate all of these hidden distributions that explain the variations over the handwriting digit recognition problem, but they do not give a final classification of a number. Actual feature values are normally derived from the distribution, taking the latent variable's expected value, which are then used as the input to a normal machine learning classifier, such as logistic regression.</li>
+</ol>
+
+<h1 id="directencodingmodelsautoencoder">Direct encoding models: auto-encoder</h1>
+
+<p>To get around the problem of deriving useful feature values, an <a href='http://en.wikipedia.org/wiki/Autoencoder' >auto-encoder</a> is a non-probabilistic alternative approach to deep learning where the hidden units produce usable numeric feature values. An auto-encoder directly maps an input <em>x</em> to a hidden layer <em>h</em> through a parameterized closed-form equation called an <em>encoder</em>. Typically, this encoder function is a nonlinear transformation of the input to <em>h</em> in the form:</p>
+
+<p><img src='http://markus.com/content/images/2013/Nov/encode.png'  alt="encode" /></p>
+
+<p>This resulting transformation is the <em>feature-vector</em> or <em>representation</em> computed from input <em>x</em>.</p>
+
+<p>Conversely, a <em>decoder</em> function is used to then map from this feature space <em>h</em> back to the input space, which results in a <em>reconstruction</em> <em>x'</em>. This decoder is also a parameterized closed-form equation that is a nonlinear 'undoing' the encoding function:</p>
+
+<p><img src='http://markus.com/content/images/2013/Nov/decode.png'  alt="decode" /></p>
+
+<p>In both cases, the nonlinear function <em>s</em> is normally an element-wise <a href='http://en.wikipedia.org/wiki/Sigmoid_function' >sigmoid</a>, <a href='http://functions.wolfram.com/ElementaryFunctions/Tanh/introductions/Tanh/ShowAll.html' >hyperbolic tangent nonlinearity</a>, or <a href='http://en.wikipedia.org/wiki/Rectifier_' (neural_networks)">rectifier linear unit</a>.</p>
+
+<p>Thus, the goal of an auto-encoder is to minimize a loss function over the reconstruction error given the training data. Model parameters Θ are {<em>W,b,W',d</em> }, with the weight matrix <em>W</em> most often having 'tied' weights such that <em>W' = W<sup>T </sup></em>.</p>
+
+<p>Stacking auto-encoders in layers is the same process as with RBMs: <br />
+<img src='http://markus.com/content/images/2013/Nov/stacked_autoencoder.png'  alt="stacked autoencoder" /></p>
+
+<p>One disadvantage of auto-encoders is that they can easily memorize the training data - i.e. find the model parameters that map every input seen to a perfect reconstruction with zero error - given enough hidden units <em>h</em>. To combat this problem, regularization is necessary, which gives rise to variants such as <a href='http://www.stanford.edu/class/cs294a/sparseAutoencoder.pdf' >sparse auto-encoders</a>, <a href='http://machinelearning.wustl.edu/mlpapers/paper_files/ICML2011Rifai_455.pdf' >contractive auto-encoders</a>, or <a href='http://deeplearning.net/tutorial/dA.html' >denoising auto-encoders</a>.</p>
+
+<p>A practical advantage of auto-encoder variants is that they define a simple, tractable optimization objective that can be used to monitor progress.</p>
+
+<h1 id="challengesandlookingforward">Challenges and looking forward</h1>
+
+<p>Deep learning is currently a very active research topic. Many problems stand in the way of reaching more general AI-level performance:</p>
+
+<p><em>Scaling computations</em> - the more complex the input space (such as harder AI problems), the larger the deep networks have to be to capture its representation. These computations scale much worse than linearly, and current research in parallelizing the training algorithms and creating convolutional architectures is meant to make these algorithms useful in practice. Convolutional architectures mean that every hidden unit output to a layer does not become the input for every other hidden unit in the next layer; they can be restricted to only connect to other hidden units that are within the same spatial area. Further, there are so many hyper-parameters for these algorithms (number of layers, hidden units, nonlinear functions, training procedures) that choosing them has become considered an 'art'.</p>
+
+<p><em>Optimization</em> - as the input datasets grow larger and larger (growing faster than the size of the models), training error and generalization error converge. Optimization difficulty during training of deep architectures comes from both finding local minima and having ill-conditioning (the two main types of optimization difficulties in continuous optimization problems). Better optimization can have an impact on scaling computations, and is interesting to study to obtain better generalization of the algorithms. <a href='http://deeplearning.net/tutorial/SdA.html' >Layer-wise pretraining</a> has helped immensely in recent years for optimization during training deep architectures.</p>
+
+<p><em>Inference and sampling</em> - all probabilistic models except for the RBM require a non-trivial form of inference (guessing values of the latent variables <em>h</em> given the conditional distribution over <em>x</em>). Inference and sampling techniques can be slow during training as well as have difficulties since the distributions can be incredibly complex and often have a very large number of modes.</p>
+
+<p><em>Disentangling</em> - finding the 'underlying factors' that explain the input data. Complex input data arise from the interaction of many interrelated sources - such as lights casting shadows, object material properties, etc. for image recognition. This would allow for very powerful cross-task learning, leading to a representation that can 'zoom in' on the relevant features in the learned representation given the current problem. Disentanglement is the most ambitious challenge presented so far, as well as the one with the most far-reaching impact towards more general AI.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<ul>
+<li>Deep learning is about creating an abstract hierarchical representation of the input data to create useful features for traditional machine learning algorithms. Each layer in the hierarchy learns a more abstract and complex feature of the data, such as edges to eyes to faces.</li>
+<li>This representation gets its power of abstraction by stacking nonlinear functions, where the output of one layer becomes the input to the next.</li>
+<li>The two main schools of thought for analyzing deep architectures are <em>probabilistic</em> vs. <em>direct encoding</em>.</li>
+<li>The probabilistic interpretation means that each layer defines a distribution of hidden units given the observed input, <em>P</em>(<em>h</em> | <em>x</em>).</li>
+<li>The direct encoding interpretation learns two separate functions -  the <em>encoder</em> and <em>decoder</em> - to transform the observed input to the feature space and then back to the observed space.</li>
+<li>These architectures have had great commercial success so far, powering many natural language processing and image recognition tasks at companies like Google and Microsoft.</li>
+</ul>
+
+<p>If you would like to learn more about the subject, check out <a href='http://deeplearning.net/' >this awesome hub</a> or <a href='http://www.iro.umontreal.ca/' ~bengioy/yoshua_en/index.html">Bengio's page</a>!</p>
+
+<p>If you are inclined to use deep learning in code, <a href='http://deeplearning.net/software/theano/' >Theano</a> is an amazing open-source Python package developed by Bengio's LISA group at University of Montreal.</p>
+
+<p>Update: <a href='https://news.ycombinator.com/item?id=6729777' >HN discussion</a></p>]]></description><link>http://markus.com/deep-learning-101/</link><guid isPermaLink="false">22ac531d-9fe9-44f9-a0e6-87097e85d99c</guid><dc:creator><![CDATA[Markus Beissinger]]></dc:creator><pubDate>Thu, 14 Nov 2013 00:43:44 GMT</pubDate></item><item><title><![CDATA[Startup School 2013]]></title><description><![CDATA[<p>This year I was lucky enough to go to Startup School hosted by Y Combinator! Apart from getting to see many of my good friends while staying at Stanford, I met a ton of interesting people, learned some valuable lessons, and finally experienced the startup culture of the Bay Area. Here are some of the most memorable lessons from the day:</p>
+
+<p><img src='http://markus.com/content/images/2013/Oct/1383404_10151908198645380_2120651893_n.jpg'  alt="startup school" /></p>
+
+<h1 id="phillibinevernote">Phil Libin (Evernote):</h1>
+
+<p><em>build something you love</em></p>
+
+<ul>
+<li>Choosing your cofounders is incredibly important, as you will be a huge part of each others lives for a long time.</li>
+<li>Success as a company only makes things harder - the most fun and least stressful time is ironically when Evernote could have gone out of business at any minute. It is not fun day-to-day, but it is fun looking back month-to-month.</li>
+<li>5 years ago, it would have been stupid advice to say 'build something for yourself'; today, it would be stupid not to. If you like something, chances are 10 million people somewhere else are as weird as you and will too. Building something you want gives you the unique advantage of knowing when it is truly great or not. Make something sufficiently epic to be your life's work.</li>
+</ul>
+
+<h1 id="dansirokeroptimizely">Dan Siroker (Optimizely):</h1>
+
+<p><em>create your own algorithm for success</em></p>
+
+<ul>
+<li>Ultimately, building a company is about the feedback loop - you make something, see what people like/don't like, and adjust.</li>
+<li>A good way to test potential board members is to have a mock board meeting; you might be surprised with the results. Having people who ask the right questions is more valuable than people who give the best answers.</li>
+<li>Most successful entrepreneurs don't follow some fixed algorithm of previous success; they make one to their own advantage. Best example of this is Elon Musk with Tesla by bypassing the traditional success algorithm of auto makers and cutting out the middleman.</li>
+</ul>
+
+<h1 id="ronconwaysvangel">Ron Conway (SV Angel):</h1>
+
+<p><em>look for a rifle focus on product and decisiveness</em></p>
+
+<ul>
+<li>A successful entrepreneur is someone with a rifle focus on the product and is very decisive. Hire fast and fire fast.</li>
+<li>Always follow the metrics - if users like your product, it is a good product.</li>
+<li>Get one term sheet asap and use it as leverage to speed up the process with other investors.</li>
+</ul>
+
+<h1 id="chrisdixonandreessenhorowitzhunch">Chris Dixon (Andreessen Horowitz, Hunch):</h1>
+
+<p><em>know a secret</em></p>
+
+<ul>
+<li>Want to be in the sweet spot of a good idea that seems like a bad idea. Challenge a social norm. Powerful people will dismiss it as a toy or hobby.</li>
+<li>Successful startups usually come from unbundling functions done by others (newspapers, schools), hobbies, and challenging social norms</li>
+<li>The best ideas come from direct experience and domain expertise.</li>
+</ul>
+
+<h1 id="dianegreenevmware">Diane Greene (VMWare):</h1>
+
+<p><em>have a big vision</em></p>
+
+<ul>
+<li>If you think of a good reason for why someone should help you, they usually will help you (like Dell did with VMWare).</li>
+<li>Bringing something to market that a few people love is much better than a product that many people like.</li>
+<li>Having deadlines helps with everything.</li>
+</ul>
+
+<h1 id="balajisrinivasancounsylstanfordlecturer">Balaji Srinivasan (Counsyl, Stanford Lecturer):</h1>
+
+<p><em>voice vs. exit</em></p>
+
+<ul>
+<li>To make change, you decide to either use your voice to create it from within or exit to create it externally.</li>
+<li>Exit is the reason voice has strength (like a BATNA in negotiations)</li>
+<li>Exit normally amplifies voice because it is radical.</li>
+</ul>
+
+<h1 id="chaseadamwatsi">Chase Adam (Watsi):</h1>
+
+<p><em>find something to work on that you care about more than yourself</em></p>
+
+<ul>
+<li>Do well and do good.</li>
+<li>Making the world smaller = making the world better.</li>
+<li>Think about the long-term effects of actions - sometimes things that help people on day 1 hurt people on day 365. An example is humanitarian efforts giving rice in Haiti put all the local rice farmers out of business.</li>
+</ul>
+
+<h1 id="jackdorseytwittersquare">Jack Dorsey (Twitter/Square):</h1>
+
+<p><em>actively make yourself a better person</em></p>
+
+<ul>
+<li>Keep a list for everything you are doing and notes for people - it is a great memory device.</li>
+<li>Have a list of do's and don'ts that you look at multiple times a day. Create habits to make yourself better.</li>
+<li>Act professional to be professional and think about the small details - tuck in your shirt, stand up straight, be present.</li>
+</ul>
+
+<h1 id="markzuckerbergfacebook">Mark Zuckerberg (Facebook):</h1>
+
+<p><em>don't avoid mistakes because you can't - just keep the determination to push through</em></p>
+
+<ul>
+<li>There is no secret sauce of why he was able to make Facebook - just a ton of determination. So much so they would have lockdowns when they felt someone else was doing something better.</li>
+<li>Vision from the beginning was connecting <em>everyone</em> in the world.</li>
+<li>When hiring someone, ask the question - would I want to work for them?</li>
+</ul>
+
+<h1 id="nathanblecharczykairbnb">Nathan Blecharczyk (Airbnb):</h1>
+
+<p><em>making a startup is like training to go to the Olympics</em></p>
+
+<ul>
+<li>You are going to fail more times than you succeed - perseverence and confidence are key. Be a 'cockroach'.</li>
+<li>You can always pivot an idea; you can't really pivot your partners. Take time choosing who you work with.</li>
+<li>Give it 100% before you quit.</li>
+</ul>]]></description><link>http://markus.com/startup-school-2013/</link><guid isPermaLink="false">cb7cf27d-d7f0-4e57-9632-a15d072ae353</guid><dc:creator><![CDATA[Markus Beissinger]]></dc:creator><pubDate>Fri, 25 Oct 2013 22:03:43 GMT</pubDate></item><item><title><![CDATA[Hello world.]]></title><description><![CDATA[<p>I’m Markus, a student in the Jerome Fisher program in Management &amp; Technology at Penn studying computer science, entrepreneurship, marketing, and decision processes. I’m currently in my 5th year also finishing a master’s in computer science. I will probably end up writing about many things here – startups, artificial intelligence, djing/producing, adventures, random thoughts, etc.</p>
+
+<p>This blog’s main purpose, however, is going to be my thesis research in deep learning as well as some thoughts on entrepreneurship. Hopefully we can have a dialogue :)</p>
+
+<p><img src='http://markus.com/content/images/2013/Oct/IMG_2031_JPG.jpg'  alt="thrun" />
+Sebastian Thrun and me at the AAAI '12 conference!</p>]]></description><link>http://markus.com/hello-world/</link><guid isPermaLink="false">d2e9b1a1-ab75-40cb-8621-db150d075325</guid><dc:creator><![CDATA[Markus Beissinger]]></dc:creator><pubDate>Thu, 24 Oct 2013 04:34:51 GMT</pubDate></item></channel></rss>

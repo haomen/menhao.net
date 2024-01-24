@@ -1,0 +1,96 @@
+\begin{thebibliography}{10}
+
+\bibitem{mtl:nips2010:manifold:agarwal2010learning}
+Arvind Agarwal, Hal Daum{\'e}~III, and Samuel Gerber.
+\newblock Learning multiple tasks using manifold regularization.
+\newblock volume~23, pages 46--54, 2010.
+
+\bibitem{mtl:aso:ando2005framework}
+Rie~Kubota Ando and Tong Zhang.
+\newblock A framework for learning predictive structures from multiple tasks
+  and unlabeled data.
+\newblock {\em The Journal of Machine Learning Research}, 6:1817--1853, 2005.
+
+\bibitem{mtl:mlj2008:argyriou2008convex}
+Andreas Argyriou, Theodoros Evgeniou, and Massimiliano Pontil.
+\newblock Convex multi-task feature learning.
+\newblock {\em Machine Learning}, 73(3):243--272, 2008.
+
+\bibitem{mtl:kdd2011:ChenLY10}
+Jianhui Chen, Ji~Liu, and Jieping Ye.
+\newblock Learning incoherent sparse and low-rank patterns from multiple tasks.
+\newblock In {\em KDD}, pages 1179--1188, 2010.
+
+\bibitem{mtl:icml2009:chen2009convex}
+Jianhui Chen, Lei Tang, Jun Liu, and Jieping Ye.
+\newblock A convex formulation for learning shared structures from multiple
+  tasks.
+\newblock In {\em Proceedings of the 26th Annual International Conference on
+  Machine Learning}, pages 137--144. ACM, 2009.
+
+\bibitem{mtl:kdd2011:ChenZY11}
+Jianhui Chen, Jiayu Zhou, and Jieping Ye.
+\newblock Integrating low-rank and group-sparse structures for robust
+  multi-task learning.
+\newblock In {\em KDD}, pages 42--50, 2011.
+
+\bibitem{mtl:NIPS2012:zhang}
+Pinghua Gong, Jieping Ye, and Changshui Zhang.
+\newblock Multi-stage multi-task feature learning.
+\newblock In {\em Advances in Neural Information Processing Systems 25}, pages
+  1997--2005. 2012.
+
+\bibitem{cmtl:NIPS2008:bach}
+Laurent Jacob, Francis Bach, and Jean-Philippe Vert.
+\newblock Clustered multi-task learning: A convex formulation.
+\newblock In D.~Koller, D.~Schuurmans, Y.~Bengio, and L.~Bottou, editors, {\em
+  Advances in Neural Information Processing Systems 21}, pages 745--752, 2009.
+
+\bibitem{ji2009accelerated}
+Shuiwang Ji and Jieping Ye.
+\newblock An accelerated gradient method for trace norm minimization.
+\newblock In {\em Proceedings of the 26th Annual International Conference on
+  Machine Learning}, pages 457--464. ACM, 2009.
+
+\bibitem{cmtl:ICML2012:Kumar_690}
+Abhishek Kumar and Hal~Daume III.
+\newblock Learning task grouping and overlap in multi-task learning.
+\newblock In {\em Proceedings of the 29th International Conference on Machine
+  Learning (ICML-12)}, ICML '12, pages 1383--1390, 2012.
+
+\bibitem{mtl:siam2010:pong2010trace}
+Ting~Kei Pong, Paul Tseng, Shuiwang Ji, and Jieping Ye.
+\newblock Trace norm regularization: reformulations, algorithms, and multi-task
+  learning.
+\newblock {\em SIAM Journal on Optimization}, 20(6):3465--3489, 2010.
+
+\bibitem{mtl:icml2005:yu2005learning}
+Kai Yu, Volker Tresp, and Anton Schwaighofer.
+\newblock {Learning Gaussian processes from multiple tasks}.
+\newblock In {\em Proceedings of the 22nd international conference on Machine
+  learning}, pages 1012--1019, 2005.
+
+\bibitem{mtl:nips2005:ica:zhang2006learning}
+Jian Zhang, Zoubin Ghahramani, and Yiming Yang.
+\newblock Learning multiple related tasks using latent independent component
+  analysis.
+\newblock {\em Advances in neural information processing systems}, 18:1585,
+  2005.
+
+\bibitem{cmtl:icml2012:flexiblecluster:zhong2012convex}
+Wenliang Zhong and James Kwok.
+\newblock Convex multitask learning with flexible task clusters.
+\newblock In {\em Proceedings of the 29th Annual International Conference on
+  Machine Learning}, 2012.
+
+\bibitem{zhou2012mutal}
+J.~Zhou, J.~Chen, and J.~Ye.
+\newblock {\em MALSAR: Multi-tAsk Learning via StructurAl Regularization}.
+\newblock Arizona State University, 2011.
+
+\bibitem{cmtl:nips2011:zhou2011clustered}
+Jiayu Zhou, Jianhui Chen, and Jieping Ye.
+\newblock Clustered multi-task learning via alternating structure optimization.
+\newblock {\em Advances in Neural Information Processing Systems}, 25, 2011.
+
+\end{thebibliography}

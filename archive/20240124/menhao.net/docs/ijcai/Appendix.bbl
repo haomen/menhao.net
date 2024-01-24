@@ -1,0 +1,9 @@
+\begin{thebibliography}{1}
+
+\bibitem{mtl:kdd2011:ChenZY11}
+Jianhui Chen, Jiayu Zhou, and Jieping Ye.
+\newblock Integrating low-rank and group-sparse structures for robust
+  multi-task learning.
+\newblock In {\em KDD}, pages 42--50, 2011.
+
+\end{thebibliography}
