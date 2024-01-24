@@ -8,7 +8,7 @@ permalink: /research
 
 # 3D Color Laser Scanner
 
-I received my PhD degree under Prof. Kishore Pochiraju's instruction at Stevens Institute of Technology. We built one of the first high precision 3D color laser mapping systems. This systems can be applied to urban surgeying, robotic mapping and autonomous navigation.
+I received my PhD degree under [Prof. Kishore Pochiraju](https://www.stevens.edu/profile/kpochira)'s instruction at Stevens Institute of Technology. We built one of the first high precision 3D color laser mapping systems. This systems can be applied to urban surgeying, robotic mapping and autonomous navigation.
 
 First 3D color mapping robot I built in Stevens: [Remotely Operated and Autonomous Mapping System (ROAMS)](https://www.technologyreview.com/s/416331/making-3d-maps-on-the-move/). This work has been reported by [MIT Technology Review](https://www.technologyreview.com/s/416331/making-3d-maps-on-the-move/), [Engadget](http://www.engadget.com/2009/11/18/3d-mapping-drone-fires-off-lasers-from-a-mile-away-video/), and [LiDAR News](https://blog.lidarnews.com/3d-laser-scanner-mapping-system-breaks-price-barrier/).
 
